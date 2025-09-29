@@ -1,103 +1,173 @@
-import Image from "next/image";
+import { TrendingUp, Users, UtensilsCrossed, Timer, CalendarDays, Download, Table2, ChefHat, LayoutDashboard, Star, ArrowUpRight, ArrowDownRight, DollarSign } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-semibold text-[var(--brand-800)] flex items-center gap-2"><LayoutDashboard size={22} /> Restaurant Dashboard</h1>
+          <p className="text-xs text-neutral-500">Monday, September 29, 2025</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex gap-2">
+          <button className="h-9 px-3 rounded-md bg-[var(--brand-500)] text-white text-sm hover:bg-[var(--brand-600)] flex items-center gap-1 shadow-sm"><CalendarDays size={16} /> Today's Schedule</button>
+          <button className="h-9 px-3 rounded-md border text-sm flex items-center gap-1 bg-white shadow-sm"><Download size={16} /> Export Report</button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <StatCard title="Today's Revenue" value="$8,247" trend="up" change="12.5%" icon={<TrendingUp size={18} />} />
+        <StatCard title="Orders Today" value="143" trend="up" change="13.3%" icon={<Users size={18} />} />
+        <StatCard title="Active Tables" value="18/24" sub="75% occupied" icon={<Table2 size={18} />} />
+        <StatCard title="Avg Wait Time" value="12 min" trend="down" change="-3.2%" icon={<Timer size={18} />} />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <RevenueOrdersChart />
+        <OrderStatusChart />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="bg-white rounded-xl shadow-sm p-4">
+          <SectionHeader title="Today's Reservations" actionLabel="3 new" />
+          <ListItem title="Johnson" subtitle="4 guests • 7:00 PM" badge="confirmed" />
+          <ListItem title="Smith" subtitle="2 guests • 5:30 PM" badge="seated" />
+          <ListItem title="Wilson" subtitle="6 guests • 6:00 PM" badge="confirmed" />
+          <ListItem title="Brown" subtitle="2 guests • 8:30 PM" badge="pending" />
+          <ListItem title="Davis" subtitle="3 guests • 4:00 PM" badge="confirmed" />
+        </div>
+        <div className="bg-white rounded-xl shadow-sm p-4">
+          <SectionHeader title="Recent Orders" />
+          <OrderRow id="BV-001" items="Steak, Pasta x2" time="2:45 PM" total="$76" status="preparing" />
+          <OrderRow id="BV-002" items="Sea bass, Wine" time="2:10 PM" total="$58" status="ready" />
+          <OrderRow id="BV-003" items="Martini, Pizza x2" time="2:15 PM" total="$45" status="served" />
+          <OrderRow id="BV-004" items="Duck Breast" time="3:00 PM" total="$44" status="preparing" />
+        </div>
+      </div>
+
+      <div className="grid sm:grid-cols-4 gap-3">
+        <QuickAction label="Manage Tables" icon={<Table2 size={16} />} />
+        <QuickAction label="Kitchen Display" icon={<UtensilsCrossed size={16} />} />
+        <QuickAction label="Staff Schedule" icon={<ChefHat size={16} />} />
+        <QuickAction label="View Reviews" icon={<Star size={16} />} />
+      </div>
+    </div>
+  );
+}
+
+function StatCard({ title, value, sub, trend, change, icon }) {
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-4">
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-xs text-neutral-500">{title}</p>
+          <p className="text-xl font-semibold mt-1">{value}</p>
+          {sub ? <p className="text-xs text-neutral-400 mt-1">{sub}</p> : null}
+          {change && (
+            <div className={`mt-2 inline-flex items-center gap-1 text-xs ${trend === 'down' ? 'text-red-600' : 'text-[var(--brand-600)]'}`}>
+              {trend === 'down' ? <ArrowDownRight size={12} /> : <ArrowUpRight size={12} />}
+              <span className="font-medium">{change}</span>
+            </div>
+          )}
+        </div>
+        <div className="text-[var(--brand-600)] w-8 h-8 rounded-full bg-[var(--brand-100)] border border-[var(--brand-500)]/20 grid place-items-center">
+          <span className="text-[var(--brand-600)]">{icon}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SectionHeader({ title, actionLabel }) {
+  return (
+    <div className="flex items-center justify-between mb-3">
+      <h3 className="font-medium">{title}</h3>
+      {actionLabel ? <span className="text-xs px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">{actionLabel}</span> : null}
+    </div>
+  );
+}
+
+function ListItem({ title, subtitle, badge }) {
+  return (
+    <div className="flex items-center justify-between py-2 border-b last:border-b-0">
+      <div className="flex items-center gap-3">
+        <div className="w-7 h-7 rounded-full bg-neutral-100 grid place-items-center text-xs">{title.charAt(0)}</div>
+        <div>
+          <p className="text-sm font-medium">{title}</p>
+          <p className="text-xs text-neutral-500">{subtitle}</p>
+        </div>
+      </div>
+      <span className={`text-[10px] px-2 py-1 rounded-full border ${badge === 'pending' ? 'bg-amber-50 text-amber-700 border-amber-200' : badge === 'confirmed' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-blue-50 text-blue-700 border-blue-200'}`}>{badge}</span>
+    </div>
+  );
+}
+
+function OrderRow({ id, items, time, total, status }) {
+  const chipStyle = status === 'preparing' ? 'bg-amber-50 text-amber-700 border-amber-200' : status === 'ready' ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-blue-50 text-blue-700 border-blue-200';
+  return (
+    <div className="flex items-center justify-between py-2 border-b last:border-b-0 text-sm">
+      <div>
+        <p className="font-medium">{id}</p>
+        <p className="text-xs text-neutral-500">{items}</p>
+      </div>
+      <div className="flex items-center gap-3">
+        <span className="text-xs text-neutral-500">{time}</span>
+        <span className="font-medium">{total}</span>
+        <span className={`text-[10px] px-2 py-1 rounded-full border ${chipStyle}`}>{status}</span>
+      </div>
+    </div>
+  );
+}
+
+function QuickAction({ label, icon }) {
+  return (
+    <button className="h-11 rounded-lg border bg-white shadow-sm hover:shadow px-3 text-sm text-left inline-flex items-center gap-2">
+      <span className="text-[var(--brand-600)]">{icon}</span>
+      {label}
+    </button>
+  );
+}
+
+function RevenueOrdersChart() {
+  const labels = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  const revenue = [820, 920, 880, 1040, 1260, 1480, 1340];
+  const { BarChart } = require("../components/charts");
+  return (
+    <div className="lg:col-span-2 bg-white rounded-xl shadow-sm p-4">
+      <h3 className="font-medium mb-3 inline-flex items-center gap-2"><DollarSign size={16} /> Weekly Revenue & Orders</h3>
+      <BarChart labels={labels} values={revenue} color="#1f3a2f" height={256} />
+    </div>
+  );
+}
+
+function OrderStatusChart() {
+  const labels = ["Preparing","Ready","Served","Cancelled"];
+  const values = [38, 22, 71, 5];
+  const colors = ["#f59e0b","#34a373","#3b82f6","#ef4444"];
+  const { DoughnutChart } = require("../components/charts");
+  return (
+    <div className="bg-white rounded-xl shadow-sm p-4">
+      <h3 className="font-medium mb-3">Order Status</h3>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center">
+        <DoughnutChart labels={labels} values={values} colors={colors} height={220} />
+        <div className="space-y-2 text-sm">
+          <LegendItem label="Completed" color="#3b82f6" value={145} />
+          <LegendItem label="In Progress" color="#34a373" value={23} />
+          <LegendItem label="Pending" color="#f59e0b" value={12} />
+          <LegendItem label="Cancelled" color="#ef4444" value={5} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function LegendItem({ label, color, value }) {
+  return (
+    <div className="flex items-center justify-between">
+      <div className="inline-flex items-center gap-2">
+        <span className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+        <span className="text-neutral-600">{label}</span>
+      </div>
+      <span className="text-neutral-500 text-xs">{value}</span>
     </div>
   );
 }
